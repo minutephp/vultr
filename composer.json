@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": ">=7",
-    "malc0mn/vultr-api-client": "^1.0"
+    "malc0mn/vultr-api-client": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": ">=4.7"

@@ -10,6 +10,19 @@ var Admin;
             this.$timeout = $timeout;
             this.gettext = gettext;
             this.gettextCatalog = gettextCatalog;
+            this.setupDb = function () {
+                var name = _this.$scope.session.site.domain.replace(/\.(\w+)$/, '');
+                _this.$ui.popupUrl('/database-popup.html', true, null, { ctrl: _this, settings: _this.$scope.settings, name: name });
+            };
+            this.format = function () {
+                _this.$ui.confirm('Any existing data on remote database will be lost! Are you sure?', 'Yes', 'No').then(function () {
+                    _this.$scope.config.save().then(function () {
+                        var form = $('form[name="dbForm"]');
+                        form.attr('action', '/admin/vultr/db-format?tweak=true');
+                        form.submit();
+                    });
+                });
+            };
             this.save = function () {
                 _this.$scope.config.save(_this.gettext('Vultr saved successfully')).then(function () {
                     top.location.href = '/admin/vultr/deploy';
