@@ -35,7 +35,7 @@ namespace Minute\Todo {
             $todos[] = ['name' => 'Setup Vultr API', 'description' => 'Allows deployment to Vultr.com',
                         'status' => $this->config->get('vultr/api') ? 'complete' : 'incomplete', 'link' => '/admin/vultr'];
 
-            $event->addContent(['Support' => $todos]);
+            $event->addContent(['Vultr' => $todos]);
         }
     }
 }

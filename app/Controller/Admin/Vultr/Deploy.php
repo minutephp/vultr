@@ -150,7 +150,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getDockerAppId(VultrClient $client): string {
-            return $this->cache->get("vultr-app", function () use ($client) {
+            return $this->cache->get("vultr-app-id", function () use ($client) {
                 $result = current(array_filter($client->metaData()->getAppList(), function ($app) { return $app['name'] == 'Docker'; }));
                 sleep(1);
 
@@ -159,7 +159,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getDockerOsId(VultrClient $client): string {
-            return $this->cache->get("vultr-app", function () use ($client) {
+            return $this->cache->get("vultr-os-id", function () use ($client) {
                 $result = current(array_filter($client->metaData()->getOsList(), function ($os) { return $os['name'] == 'Application'; }));
                 sleep(1);
 
@@ -168,7 +168,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getRegionId(VultrClient $client, $region = 'Los Angeles'): string {
-            return $this->cache->get("vultr-app", function () use ($client, $region) {
+            return $this->cache->get("vultr-region-id", function () use ($client, $region) {
                 $result = current(array_filter($client->region()->getList(), function ($r) use ($region) { return $r['name'] == $region; }));
                 sleep(1);
 
@@ -177,7 +177,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getPlanId(VultrClient $client, $price = 5): string {
-            return $this->cache->get("vultr-app", function () use ($client, $price) {
+            return $this->cache->get("vultr-plan-id", function () use ($client, $price) {
                 $result = current(array_filter($client->metaData()->getPlansList(), function ($plan) use ($price) {
                     return (empty($plan['deprecated']) && ($plan['plan_type'] == 'SSD') && ($plan['price_per_month'] == $price));
                 }));
@@ -188,7 +188,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getFirewallId(VultrClient $client): string {
-            return $this->cache->get("vultr-app", function () use ($client) {
+            return $this->cache->get("vultr-firewall-id", function () use ($client) {
                 $result = current($client->firewall()->getGroupList());
                 sleep(1);
 
@@ -197,7 +197,7 @@ namespace App\Controller\Admin\Vultr {
         }
 
         protected function getSshKeyId(VultrClient $client): string {
-            return $this->cache->get("vultr-app", function () use ($client) {
+            return $this->cache->get("vultr-ssh-id", function () use ($client) {
                 $result = current($client->sshKey()->getList());
                 sleep(1);
 
